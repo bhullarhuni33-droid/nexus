@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS — Your AI Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #060609;
+      --dark: #0a0a12;
+      --card: #0f0f1a;
+      --green: #00c853;
+      --green-dim: #00c85322;
+      --green-mid: #00c85355;
+      --purple: #7c3aed;
+      --purple-dim: #7c3aed22;
+      --white: #f0f0f0;
+      --muted: #666680;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* GRID LINES */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(0,200,83,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,83,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(6,6,9,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--green);
+      color: var(--black) !important;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-weight: 700 !important;
+      transition: all 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: #00ff69 !important;
+      color: var(--black) !important;
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      z-index: 1;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,200,83,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-mid);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(56px, 10vw, 120px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+      position: relative;
+    }
+
+    .hero h1 span::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green);
+      border-radius: 2px;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      font-weight: 400;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green);
+      color: var(--black);
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary:hover {
+      background: #00ff69;
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0,200,83,0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      margin-top: 80px;
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
+
+    /* MOCKUP */
+    .hero-mockup {
+      margin-top: 80px;
+      position: relative;
+      animation: fadeUp 0.8s ease 0.5s both;
+    }
+
+    .mockup-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(10,10,18,0.95);
+      border: 1px solid rgba(0,200,83,0.2);
+      border-radius: 100px;
+      padding: 14px 28px;
+      box-shadow: 0 0 60px rgba(0,200,83,0.15), 0 40px 80px rgba(0,0,0,0.5);
+    }
+
+    .mockup-orb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #5eff8a, #00c853);
+      box-shadow: 0 0 12px rgba(0,200,83,0.6);
+      animation: pulse-orb 2s infinite;
+    }
+
+    @keyframes pulse-orb {
+      0%, 100% { box-shadow: 0 0 12px rgba(0,200,83,0.6); }
+      50% { box-shadow: 0 0 24px rgba(0,200,83,0.9); }
+    }
+
+    .mockup-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .mockup-response {
+      font-size: 13px;
+      color: #4ade80;
+      max-width: 300px;
+    }
+
+    /* FEATURES */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 120px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.6;
+      margin-bottom: 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--card);
+      padding: 40px;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      background: #12121f;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-mid);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-mid), transparent);
+    }
+
+    .step {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .step-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 1px solid var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px 40px;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.pro {
+      border-color: var(--green-mid);
+      background: linear-gradient(135deg, #0a0a12, #0f1a0f);
+      box-shadow: 0 0 60px rgba(0,200,83,0.08);
+    }
+
+    .pricing-card.pro:hover {
+      box-shadow: 0 20px 60px rgba(0,200,83,0.15);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .pricing-plan {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .pricing-price {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price span {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .pricing-period {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .check {
+      color: var(--green);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .pricing-btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .pricing-btn.free {
+      border: 1px solid var(--border);
+      color: var(--white);
+    }
+
+    .pricing-btn.free:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .pricing-btn.pro-btn {
+      background: var(--green);
+      color: var(--black);
+    }
+
+    .pricing-btn.pro-btn:hover {
+      background: #00ff69;
+      box-shadow: 0 10px 30px rgba(0,200,83,0.3);
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 120px 40px;
+      background: linear-gradient(180deg, transparent, rgba(0,200,83,0.04), transparent);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .section { padding: 80px 24px; }
+      .steps { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#0a0a12"/>
+        <line x1="8" y1="24" x2="8" y2="8" stroke="#00c853" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="24" y1="24" x2="24" y2="8" stroke="#00c853" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="8" y1="8" x2="24" y2="24" stroke="#00c853" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="8" cy="8" r="2" fill="#00c853"/>
+        <circle cx="24" cy="8" r="2" fill="#00c853"/>
+        <circle cx="8" cy="24" r="2" fill="#00c853"/>
+        <circle cx="24" cy="24" r="2" fill="#00c853"/>
+        <circle cx="16" cy="16" r="1.5" fill="#7c3aed"/>
+      </svg>
+      <span class="nav-logo-text">NEXUS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#download" class="nav-cta">Download Free</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Now available for Windows
+    </div>
+
+    <h1>Your AI lives<br>on your <span>desktop</span></h1>
+
+    <p class="hero-sub">
+      NEXUS sits quietly on your screen. Press a shortcut, speak naturally — it sees your screen, understands your question, and responds instantly.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">
+        ↓ Download for Windows
+      </a>
+      <a href="#how" class="btn-secondary">
+        See how it works →
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">10</div>
+        <div class="stat-label">Free daily queries</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">&lt;2s</div>
+        <div class="stat-label">Response time</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Memory</div>
+      </div>
+    </div>
+
+    <div class="hero-mockup">
+      <div class="mockup-pill">
+        <div class="mockup-orb"></div>
+        <div>
+          <div class="mockup-text">🎤 What's wrong with my code?</div>
+          <div class="mockup-response">Line 41 has a CSS vendor prefix issue — just add <code style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-size:11px">background-clip: text</code> below it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div id="features" style="position:relative;z-index:1;">
+    <div class="section">
+      <div class="section-label reveal">What NEXUS can do</div>
+      <h2 class="section-title reveal">Built different.<br>Works different.</h2>
+      <p class="section-sub reveal">Not another chatbot tab. NEXUS lives on your desktop and works with you in real time.</p>
+
+      <div class="features-grid reveal">
+        <div class="feature-card">
+          <div class="feature-icon">👁️</div>
+          <div class="feature-title">Sees your screen</div>
+          <div class="feature-desc">Ask "what's wrong here?" and NEXUS looks at your screen and answers — no copy-pasting code ever again.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎤</div>
+          <div class="feature-title">Voice activated</div>
+          <div class="feature-desc">Press Ctrl+Space, speak naturally, stop talking — NEXUS automatically detects silence and responds.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-title">Remembers everything</div>
+          <div class="feature-desc">NEXUS remembers past conversations and uses them as context to give smarter, more relevant answers over time.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Always on top</div>
+          <div class="feature-desc">Floats above all windows as a tiny pill. Drag it anywhere. It's always there when you need it, invisible when you don't.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-title">Private & secure</div>
+          <div class="feature-desc">Your conversations stay on your device. Screenshots are never stored. NEXUS disappears from screen captures automatically.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Speaks your language</div>
+          <div class="feature-desc">Talk in English or Hinglish — NEXUS detects your language and responds naturally in the same way you speak.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div id="how" style="position:relative;z-index:1;background:rgba(0,200,83,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section" style="text-align:center;">
+      <div class="section-label reveal" style="text-align:center">How it works</div>
+      <h2 class="section-title reveal" style="text-align:center">Three steps.<br>That's it.</h2>
+      <p class="section-sub reveal" style="margin:0 auto 64px;text-align:center">No setup headaches. No accounts needed to start. Just install and talk.</p>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div class="step-title">Install NEXUS</div>
+          <div class="step-desc">Download the installer, run it, and NEXUS appears as a floating pill on your screen. Takes 30 seconds.</div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <div class="step-title">Press Ctrl+Space</div>
+          <div class="step-desc">Activate NEXUS with a keyboard shortcut from anywhere — coding, browsing, writing, doesn't matter.</div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <div class="step-title">Just talk</div>
+          <div class="step-desc">Speak your question. NEXUS listens, sees your screen, thinks, and responds out loud in seconds.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div id="pricing" style="position:relative;z-index:1;">
+    <div class="section" style="text-align:center;">
+      <div class="section-label reveal" style="text-align:center">Pricing</div>
+      <h2 class="section-title reveal" style="text-align:center">Start free.<br>Go unlimited.</h2>
+      <p class="section-sub reveal" style="margin:0 auto 64px;text-align:center">No credit card needed to get started. Upgrade when you're ready.</p>
+
+      <div class="pricing-grid reveal">
+        <div class="pricing-card">
+          <div class="pricing-plan">Free</div>
+          <div class="pricing-price">₹0</div>
+          <div class="pricing-period">forever</div>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> 10 questions per day</li>
+            <li><span class="check">✓</span> Screen vision</li>
+            <li><span class="check">✓</span> Voice activated</li>
+            <li><span class="check">✓</span> Memory system</li>
+            <li><span class="check">✓</span> Hinglish support</li>
+          </ul>
+          <a href="#download" class="pricing-btn free">Download Free</a>
+        </div>
+
+        <div class="pricing-card pro">
+          <div class="pricing-badge">MOST POPULAR</div>
+          <div class="pricing-plan">Pro</div>
+          <div class="pricing-price">₹299<span>/mo</span></div>
+          <div class="pricing-period">billed monthly</div>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> Unlimited questions</li>
+            <li><span class="check">✓</span> Screen vision</li>
+            <li><span class="check">✓</span> Voice activated</li>
+            <li><span class="check">✓</span> Memory system</li>
+            <li><span class="check">✓</span> Hinglish support</li>
+            <li><span class="check">✓</span> Priority response speed</li>
+            <li><span class="check">✓</span> Early access to new features</li>
+          </ul>
+          <a href="#download" class="pricing-btn pro-btn">Get Pro — ₹299/mo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD CTA -->
+  <div id="download">
+    <div class="cta-section">
+      <h2 class="reveal">Ready to meet<br>your AI companion?</h2>
+      <p class="reveal">Free to download. Works on Windows 10 and above.</p>
+      <div class="reveal">
+        <a href="https://github.com/bhullarhuni33-droid/nexus-ai/releases/latest" class="btn-primary" style="display:inline-flex">
+          ↓ Download NEXUS for Windows
+        </a>
+        <p style="margin-top:16px;font-size:12px;color:var(--muted)">Windows 10/11 · 86 MB · Free</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">NEXUS</div>
+    <div class="footer-copy">© 2026 NEXUS. Built with ⚡ by Armaan.</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible')
+          }, i * 80)
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.1 })
+    reveals.forEach(el => observer.observe(el))
+
+    // Smooth nav highlight
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'))
+        if (target) {
+          e.preventDefault()
+          target.scrollIntoView({ behavior: 'smooth' })
+        }
+      })
+    })
+  </script>
+</body>
+</html>
