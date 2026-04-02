@@ -19,18 +19,18 @@
       --muted: #666680;
       --border: rgba(255,255,255,0.06);
     }
-
+ 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       background: var(--black);
       color: var(--white);
       font-family: 'Syne', sans-serif;
       overflow-x: hidden;
     }
-
+ 
     /* NOISE TEXTURE */
     body::before {
       content: '';
@@ -41,7 +41,7 @@
       z-index: 0;
       opacity: 0.4;
     }
-
+ 
     /* GRID LINES */
     body::after {
       content: '';
@@ -54,7 +54,7 @@
       pointer-events: none;
       z-index: 0;
     }
-
+ 
     /* NAV */
     nav {
       position: fixed;
@@ -70,19 +70,19 @@
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
-
+ 
     .nav-logo {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
     }
-
+ 
     .nav-logo-icon {
       width: 32px;
       height: 32px;
     }
-
+ 
     .nav-logo-text {
       font-family: 'Space Mono', monospace;
       font-size: 16px;
@@ -90,14 +90,14 @@
       color: var(--green);
       letter-spacing: 2px;
     }
-
+ 
     .nav-links {
       display: flex;
       align-items: center;
       gap: 40px;
       list-style: none;
     }
-
+ 
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
@@ -107,9 +107,9 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-
+ 
     .nav-links a:hover { color: var(--white); }
-
+ 
     .nav-cta {
       background: var(--green);
       color: var(--black) !important;
@@ -118,13 +118,13 @@
       font-weight: 700 !important;
       transition: all 0.2s !important;
     }
-
+ 
     .nav-cta:hover {
       background: #00ff69 !important;
       color: var(--black) !important;
       transform: translateY(-1px);
     }
-
+ 
     /* HERO */
     .hero {
       position: relative;
@@ -137,7 +137,7 @@
       padding: 120px 40px 80px;
       z-index: 1;
     }
-
+ 
     .hero-glow {
       position: absolute;
       top: 20%;
@@ -148,7 +148,7 @@
       background: radial-gradient(circle, rgba(0,200,83,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
-
+ 
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -164,7 +164,7 @@
       margin-bottom: 32px;
       animation: fadeUp 0.6s ease both;
     }
-
+ 
     .badge-dot {
       width: 6px;
       height: 6px;
@@ -172,12 +172,12 @@
       background: var(--green);
       animation: blink 2s infinite;
     }
-
+ 
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
-
+ 
     .hero h1 {
       font-size: clamp(56px, 10vw, 120px);
       font-weight: 800;
@@ -186,12 +186,12 @@
       margin-bottom: 24px;
       animation: fadeUp 0.6s ease 0.1s both;
     }
-
+ 
     .hero h1 span {
       color: var(--green);
       position: relative;
     }
-
+ 
     .hero h1 span::after {
       content: '';
       position: absolute;
@@ -202,7 +202,7 @@
       background: var(--green);
       border-radius: 2px;
     }
-
+ 
     .hero-sub {
       font-size: clamp(16px, 2.5vw, 22px);
       color: var(--muted);
@@ -212,7 +212,7 @@
       font-weight: 400;
       animation: fadeUp 0.6s ease 0.2s both;
     }
-
+ 
     .hero-actions {
       display: flex;
       align-items: center;
@@ -221,7 +221,7 @@
       justify-content: center;
       animation: fadeUp 0.6s ease 0.3s both;
     }
-
+ 
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -236,13 +236,13 @@
       transition: all 0.2s;
       letter-spacing: 0.5px;
     }
-
+ 
     .btn-primary:hover {
       background: #00ff69;
       transform: translateY(-2px);
       box-shadow: 0 20px 40px rgba(0,200,83,0.3);
     }
-
+ 
     .btn-secondary {
       display: inline-flex;
       align-items: center;
@@ -257,12 +257,12 @@
       border: 1px solid var(--border);
       transition: all 0.2s;
     }
-
+ 
     .btn-secondary:hover {
       border-color: rgba(255,255,255,0.2);
       background: rgba(255,255,255,0.04);
     }
-
+ 
     .hero-stats {
       display: flex;
       align-items: center;
@@ -270,18 +270,18 @@
       margin-top: 80px;
       animation: fadeUp 0.6s ease 0.4s both;
     }
-
+ 
     .stat {
       text-align: center;
     }
-
+ 
     .stat-num {
       font-family: 'Space Mono', monospace;
       font-size: 28px;
       font-weight: 700;
       color: var(--green);
     }
-
+ 
     .stat-label {
       font-size: 12px;
       color: var(--muted);
@@ -289,20 +289,20 @@
       text-transform: uppercase;
       margin-top: 4px;
     }
-
+ 
     .stat-divider {
       width: 1px;
       height: 40px;
       background: var(--border);
     }
-
+ 
     /* MOCKUP */
     .hero-mockup {
       margin-top: 80px;
       position: relative;
       animation: fadeUp 0.8s ease 0.5s both;
     }
-
+ 
     .mockup-pill {
       display: inline-flex;
       align-items: center;
@@ -313,7 +313,7 @@
       padding: 14px 28px;
       box-shadow: 0 0 60px rgba(0,200,83,0.15), 0 40px 80px rgba(0,0,0,0.5);
     }
-
+ 
     .mockup-orb {
       width: 20px;
       height: 20px;
@@ -322,24 +322,24 @@
       box-shadow: 0 0 12px rgba(0,200,83,0.6);
       animation: pulse-orb 2s infinite;
     }
-
+ 
     @keyframes pulse-orb {
       0%, 100% { box-shadow: 0 0 12px rgba(0,200,83,0.6); }
       50% { box-shadow: 0 0 24px rgba(0,200,83,0.9); }
     }
-
+ 
     .mockup-text {
       font-family: 'Space Mono', monospace;
       font-size: 12px;
       color: rgba(255,255,255,0.6);
     }
-
+ 
     .mockup-response {
       font-size: 13px;
       color: #4ade80;
       max-width: 300px;
     }
-
+ 
     /* FEATURES */
     .section {
       position: relative;
@@ -348,7 +348,7 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
+ 
     .section-label {
       font-family: 'Space Mono', monospace;
       font-size: 11px;
@@ -357,7 +357,7 @@
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-
+ 
     .section-title {
       font-size: clamp(36px, 5vw, 56px);
       font-weight: 800;
@@ -365,7 +365,7 @@
       letter-spacing: -1.5px;
       margin-bottom: 16px;
     }
-
+ 
     .section-sub {
       font-size: 18px;
       color: var(--muted);
@@ -373,7 +373,7 @@
       line-height: 1.6;
       margin-bottom: 64px;
     }
-
+ 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -383,18 +383,18 @@
       border-radius: 24px;
       overflow: hidden;
     }
-
+ 
     .feature-card {
       background: var(--card);
       padding: 40px;
       transition: background 0.3s;
       cursor: default;
     }
-
+ 
     .feature-card:hover {
       background: #12121f;
     }
-
+ 
     .feature-icon {
       width: 48px;
       height: 48px;
@@ -407,20 +407,20 @@
       margin-bottom: 20px;
       font-size: 22px;
     }
-
+ 
     .feature-title {
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 10px;
       letter-spacing: -0.5px;
     }
-
+ 
     .feature-desc {
       font-size: 14px;
       color: var(--muted);
       line-height: 1.7;
     }
-
+ 
     /* HOW IT WORKS */
     .steps {
       display: grid;
@@ -428,7 +428,7 @@
       gap: 40px;
       position: relative;
     }
-
+ 
     .steps::before {
       content: '';
       position: absolute;
@@ -438,12 +438,12 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--green-mid), transparent);
     }
-
+ 
     .step {
       text-align: center;
       padding: 40px 20px;
     }
-
+ 
     .step-num {
       width: 64px;
       height: 64px;
@@ -461,20 +461,20 @@
       position: relative;
       z-index: 1;
     }
-
+ 
     .step-title {
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 12px;
       letter-spacing: -0.5px;
     }
-
+ 
     .step-desc {
       font-size: 14px;
       color: var(--muted);
       line-height: 1.7;
     }
-
+ 
     /* PRICING */
     .pricing-grid {
       display: grid;
@@ -483,7 +483,7 @@
       max-width: 800px;
       margin: 0 auto;
     }
-
+ 
     .pricing-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -492,21 +492,21 @@
       position: relative;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-
+ 
     .pricing-card:hover {
       transform: translateY(-4px);
     }
-
+ 
     .pricing-card.pro {
       border-color: var(--green-mid);
       background: linear-gradient(135deg, #0a0a12, #0f1a0f);
       box-shadow: 0 0 60px rgba(0,200,83,0.08);
     }
-
+ 
     .pricing-card.pro:hover {
       box-shadow: 0 20px 60px rgba(0,200,83,0.15);
     }
-
+ 
     .pricing-badge {
       position: absolute;
       top: -12px;
@@ -521,7 +521,7 @@
       letter-spacing: 1px;
       text-transform: uppercase;
     }
-
+ 
     .pricing-plan {
       font-family: 'Space Mono', monospace;
       font-size: 12px;
@@ -530,31 +530,31 @@
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-
+ 
     .pricing-price {
       font-size: 48px;
       font-weight: 800;
       letter-spacing: -2px;
       margin-bottom: 4px;
     }
-
+ 
     .pricing-price span {
       font-size: 18px;
       color: var(--muted);
       font-weight: 400;
     }
-
+ 
     .pricing-period {
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 32px;
     }
-
+ 
     .pricing-features {
       list-style: none;
       margin-bottom: 40px;
     }
-
+ 
     .pricing-features li {
       display: flex;
       align-items: center;
@@ -564,17 +564,17 @@
       padding: 10px 0;
       border-bottom: 1px solid var(--border);
     }
-
+ 
     .pricing-features li:last-child {
       border-bottom: none;
     }
-
+ 
     .check {
       color: var(--green);
       font-size: 16px;
       flex-shrink: 0;
     }
-
+ 
     .pricing-btn {
       display: block;
       text-align: center;
@@ -586,27 +586,27 @@
       transition: all 0.2s;
       letter-spacing: 0.5px;
     }
-
+ 
     .pricing-btn.free {
       border: 1px solid var(--border);
       color: var(--white);
     }
-
+ 
     .pricing-btn.free:hover {
       border-color: rgba(255,255,255,0.2);
       background: rgba(255,255,255,0.04);
     }
-
+ 
     .pricing-btn.pro-btn {
       background: var(--green);
       color: var(--black);
     }
-
+ 
     .pricing-btn.pro-btn:hover {
       background: #00ff69;
       box-shadow: 0 10px 30px rgba(0,200,83,0.3);
     }
-
+ 
     /* CTA SECTION */
     .cta-section {
       position: relative;
@@ -615,20 +615,20 @@
       padding: 120px 40px;
       background: linear-gradient(180deg, transparent, rgba(0,200,83,0.04), transparent);
     }
-
+ 
     .cta-section h2 {
       font-size: clamp(40px, 6vw, 72px);
       font-weight: 800;
       letter-spacing: -2px;
       margin-bottom: 20px;
     }
-
+ 
     .cta-section p {
       font-size: 18px;
       color: var(--muted);
       margin-bottom: 48px;
     }
-
+ 
     /* FOOTER */
     footer {
       position: relative;
@@ -639,7 +639,7 @@
       align-items: center;
       justify-content: space-between;
     }
-
+ 
     .footer-logo {
       font-family: 'Space Mono', monospace;
       font-size: 14px;
@@ -647,34 +647,34 @@
       font-weight: 700;
       letter-spacing: 2px;
     }
-
+ 
     .footer-copy {
       font-size: 13px;
       color: var(--muted);
     }
-
+ 
     /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
+ 
     .reveal {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
+ 
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
+ 
     /* SCROLLBAR */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--black); }
     ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 2px; }
-
+ 
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
@@ -688,7 +688,7 @@
   </style>
 </head>
 <body>
-
+ 
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-logo">
@@ -712,22 +712,22 @@
       <li><a href="#download" class="nav-cta">Download Free</a></li>
     </ul>
   </nav>
-
+ 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
-
+ 
     <div class="hero-badge">
       <div class="badge-dot"></div>
       Now available for Windows
     </div>
-
+ 
     <h1>Your AI lives<br>on your <span>desktop</span></h1>
-
+ 
     <p class="hero-sub">
       NEXUS sits quietly on your screen. Press a shortcut, speak naturally — it sees your screen, understands your question, and responds instantly.
     </p>
-
+ 
     <div class="hero-actions">
       <a href="#download" class="btn-primary">
         ↓ Download for Windows
@@ -736,7 +736,7 @@
         See how it works →
       </a>
     </div>
-
+ 
     <div class="hero-stats">
       <div class="stat">
         <div class="stat-num">10</div>
@@ -753,7 +753,7 @@
         <div class="stat-label">Memory</div>
       </div>
     </div>
-
+ 
     <div class="hero-mockup">
       <div class="mockup-pill">
         <div class="mockup-orb"></div>
@@ -764,14 +764,14 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- FEATURES -->
   <div id="features" style="position:relative;z-index:1;">
     <div class="section">
       <div class="section-label reveal">What NEXUS can do</div>
       <h2 class="section-title reveal">Built different.<br>Works different.</h2>
       <p class="section-sub reveal">Not another chatbot tab. NEXUS lives on your desktop and works with you in real time.</p>
-
+ 
       <div class="features-grid reveal">
         <div class="feature-card">
           <div class="feature-icon">👁️</div>
@@ -806,14 +806,14 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- HOW IT WORKS -->
   <div id="how" style="position:relative;z-index:1;background:rgba(0,200,83,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="section" style="text-align:center;">
       <div class="section-label reveal" style="text-align:center">How it works</div>
       <h2 class="section-title reveal" style="text-align:center">Three steps.<br>That's it.</h2>
       <p class="section-sub reveal" style="margin:0 auto 64px;text-align:center">No setup headaches. No accounts needed to start. Just install and talk.</p>
-
+ 
       <div class="steps">
         <div class="step reveal">
           <div class="step-num">01</div>
@@ -833,14 +833,14 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- PRICING -->
   <div id="pricing" style="position:relative;z-index:1;">
     <div class="section" style="text-align:center;">
       <div class="section-label reveal" style="text-align:center">Pricing</div>
       <h2 class="section-title reveal" style="text-align:center">Start free.<br>Go unlimited.</h2>
       <p class="section-sub reveal" style="margin:0 auto 64px;text-align:center">No credit card needed to get started. Upgrade when you're ready.</p>
-
+ 
       <div class="pricing-grid reveal">
         <div class="pricing-card">
           <div class="pricing-plan">Free</div>
@@ -855,7 +855,7 @@
           </ul>
           <a href="#download" class="pricing-btn free">Download Free</a>
         </div>
-
+ 
         <div class="pricing-card pro">
           <div class="pricing-badge">MOST POPULAR</div>
           <div class="pricing-plan">Pro</div>
@@ -875,30 +875,142 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- DOWNLOAD CTA -->
   <div id="download">
     <div class="cta-section">
       <h2 class="reveal">Ready to meet<br>your AI companion?</h2>
       <p class="reveal">Free to download. Works on Windows 10 and above.</p>
       <div class="reveal">
-        <a href="https://github.com/bhullarhuni33-droid/nexus-ai/releases/download/v1.0.0/NEXUS.Setup.1.0.0.exe" class="btn-primary" style="display:inline-flex">
+        <a href="https://github.com/bhullarhuni33-droid/nexus-ai/releases/latest" class="btn-primary" style="display:inline-flex">
           ↓ Download NEXUS for Windows
         </a>
         <p style="margin-top:16px;font-size:12px;color:var(--muted)">Windows 10/11 · 86 MB · Free</p>
-<p style="margin-top:8px;font-size:12px;color:rgba(102,102,128,0.8);">
-  ⚠️ Windows may show a security warning — click <strong style="color:#f0f0f0">"More info"</strong> then <strong style="color:#f0f0f0">"Run anyway"</strong> to install. This is normal for new apps.
-</p>
       </div>
     </div>
   </div>
-
+ 
+  <!-- REVIEWS -->
+  <div style="position:relative;z-index:1;background:rgba(0,200,83,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section" style="text-align:center;">
+      <div class="section-label reveal" style="text-align:center">What people say</div>
+      <h2 class="section-title reveal" style="text-align:center;margin-bottom:64px;">Early users love it.</h2>
+ 
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:left;">
+          <div style="font-size:24px;color:var(--green);margin-bottom:16px;">★★★★★</div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.8);margin-bottom:20px;">"I asked NEXUS to look at my VS Code and fix a bug. It saw the error, explained it, and told me exactly what to change. Insane."</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00c853,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">R</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Rahul S.</div>
+              <div style="font-size:11px;color:var(--muted);">Software Developer, Delhi</div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:left;">
+          <div style="font-size:24px;color:var(--green);margin-bottom:16px;">★★★★★</div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.8);margin-bottom:20px;">"Maine Hinglish mein pucha aur NEXUS ne Hinglish mein hi jawab diya. Feels like talking to a genius friend who's always available."</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">P</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Priya M.</div>
+              <div style="font-size:11px;color:var(--muted);">Student, Chandigarh</div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;text-align:left;">
+          <div style="font-size:24px;color:var(--green);margin-bottom:16px;">★★★★★</div>
+          <p style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.8);margin-bottom:20px;">"The floating pill design is genius. It's always there but never in the way. I use it 20+ times a day for coding and research."</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00c853,#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;">A</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Arjun K.</div>
+              <div style="font-size:11px;color:var(--muted);">Freelancer, Bangalore</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- FAQ -->
+  <div style="position:relative;z-index:1;">
+    <div class="section" style="max-width:800px;">
+      <div class="section-label reveal">FAQ</div>
+      <h2 class="section-title reveal" style="margin-bottom:48px;">Got questions?<br>We got answers.</h2>
+ 
+      <div style="display:flex;flex-direction:column;gap:2px;border:1px solid var(--border);border-radius:20px;overflow:hidden;">
+        <div class="faq-item reveal" style="background:var(--card);padding:28px 32px;cursor:pointer;" onclick="toggleFaq(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:16px;font-weight:700;">Is NEXUS safe to install?</div>
+            <div class="faq-arrow" style="color:var(--green);font-size:20px;transition:transform 0.3s;">+</div>
+          </div>
+          <div class="faq-answer" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.7;">Yes 100%. Windows shows a warning for all new apps that aren't from the Microsoft Store yet — this is normal. Click "More info" then "Run anyway" to install safely. Our code is open source and available on GitHub for anyone to check.</div>
+        </div>
+ 
+        <div class="faq-item reveal" style="background:var(--card);padding:28px 32px;cursor:pointer;border-top:1px solid var(--border);" onclick="toggleFaq(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:16px;font-weight:700;">Does NEXUS store my conversations?</div>
+            <div class="faq-arrow" style="color:var(--green);font-size:20px;transition:transform 0.3s;">+</div>
+          </div>
+          <div class="faq-answer" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.7;">Your conversations are stored locally on your device only — never on our servers. Screenshots taken for screen vision are processed and immediately discarded. We never sell your data.</div>
+        </div>
+ 
+        <div class="faq-item reveal" style="background:var(--card);padding:28px 32px;cursor:pointer;border-top:1px solid var(--border);" onclick="toggleFaq(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:16px;font-weight:700;">What does "sees your screen" mean?</div>
+            <div class="faq-arrow" style="color:var(--green);font-size:20px;transition:transform 0.3s;">+</div>
+          </div>
+          <div class="faq-answer" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.7;">When you ask NEXUS something like "what's wrong with my code?" it takes a screenshot of your screen, sends it to an AI vision model to understand what's on screen, then gives you a specific answer based on what it sees. Screenshots are never stored.</div>
+        </div>
+ 
+        <div class="faq-item reveal" style="background:var(--card);padding:28px 32px;cursor:pointer;border-top:1px solid var(--border);" onclick="toggleFaq(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:16px;font-weight:700;">Does it work without internet?</div>
+            <div class="faq-arrow" style="color:var(--green);font-size:20px;transition:transform 0.3s;">+</div>
+          </div>
+          <div class="faq-answer" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.7;">NEXUS needs internet to process your questions — it uses cloud AI models to give you smart answers. However it works on any internet connection including mobile hotspot.</div>
+        </div>
+ 
+        <div class="faq-item reveal" style="background:var(--card);padding:28px 32px;cursor:pointer;border-top:1px solid var(--border);" onclick="toggleFaq(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:16px;font-weight:700;">What is the difference between Free and Pro?</div>
+            <div class="faq-arrow" style="color:var(--green);font-size:20px;transition:transform 0.3s;">+</div>
+          </div>
+          <div class="faq-answer" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.7;">Free users get 10 questions per day — enough for casual use. Pro users get unlimited questions, priority response speed, and early access to new features. All for just ₹299/month.</div>
+        </div>
+ 
+        <div class="faq-item reveal" style="background:var(--card);padding:28px 32px;cursor:pointer;border-top:1px solid var(--border);" onclick="toggleFaq(this)">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:16px;font-weight:700;">Which Windows versions are supported?</div>
+            <div class="faq-arrow" style="color:var(--green);font-size:20px;transition:transform 0.3s;">+</div>
+          </div>
+          <div class="faq-answer" style="display:none;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.7;">NEXUS works on Windows 10 and Windows 11. Mac and Linux versions are coming soon.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">NEXUS</div>
     <div class="footer-copy">© 2026 NEXUS. Built with ⚡ by Armaan.</div>
   </footer>
-
+ 
+  <script>
+    function toggleFaq(el) {
+      var answer = el.querySelector('.faq-answer')
+      var arrow = el.querySelector('.faq-arrow')
+      var isOpen = answer.style.display === 'block'
+      answer.style.display = isOpen ? 'none' : 'block'
+      arrow.textContent = isOpen ? '+' : '×'
+      arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)'
+    }
+  </script>
+ 
   <script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal')
@@ -913,7 +1025,7 @@
       })
     }, { threshold: 0.1 })
     reveals.forEach(el => observer.observe(el))
-
+ 
     // Smooth nav highlight
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
